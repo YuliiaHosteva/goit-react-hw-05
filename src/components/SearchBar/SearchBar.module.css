@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(22, 109, 117, 0.414);
+  margin-bottom: 36px;
+
+}
+
+.form {
+  width: 360px;
+}
+
+.searchBox {
+  position: relative;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+}
+
+.form input {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  height: 42px;
+  padding-left: 12px;
+  padding-right: 48px;
+  font-size: 18px;
+}
+
+.form button {
+  position: absolute;
+  background-color: transparent;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 0;
+  border: none;
+}

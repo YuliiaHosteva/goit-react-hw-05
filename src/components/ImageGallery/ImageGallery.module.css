@@ -1,0 +1,17 @@
+.list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 18px;
+    column-gap: 16px;
+    margin-bottom: 36px;
+    padding: 0 16px 0 16px;
+  }
+  
+  .item {
+    transition: all var(--td) var(--ttf);
+    aspect-ratio: 1;
+  }
+  .item:hover {
+    transform: scale(1.05);
+    cursor: zoom-in;
+  }
