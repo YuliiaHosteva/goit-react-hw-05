@@ -1,97 +1,36 @@
-import { useState, useEffect } from 'react';
-import { fetchImages } from '../../api';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import SearchBar from '../SearchBar/SearchBar';
-import Loader from '../Loader/Loader';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-import ImageModal from '../ImageModal/ImageModal';
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
+import MovieCast from "../MovieCast/MovieCast";
+import MovieReviews from "../MovieReviews/MovieReviews";
+import Loader from "../Loader/Loader";
+import css from './App.module.css';
 
-const App = () => {
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [page, setPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedImageInfo, setSelectedImageInfo] = useState({});
+const HomePage = lazy(() => import("../../pages/HomePages/HomePages"));
+const MoviePage = lazy(() => import("../../pages/MoviePage/MoviePage"));
+const NotFoundPage = lazy(() =>
+  import("../../pages/NotFoundPage/NotFoundPage")
+);
+const MovieDetailsPage = lazy(() =>
+  import("../../pages/MovieDetailsPage/MovieDetailsPage")
+);
 
-  useEffect(() => {
-    const getImages = async () => {
-      try {
-        setIsLoading(true);
-        const { results, total_pages } = await fetchImages({ query, page });
-
-        if (!results.length) {
-          setIsEmpty(true);
-          return;
-        }
-
-        setImages(prev => [...prev, ...results]);
-        setIsVisible(page < total_pages);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getImages();
-  }, [query, page]);
-
-  const handleSearch = value => {
-    if (value === query) return;
-    setImages([]);
-    setIsError(false);
-    setQuery(value);
-    setPage(1);
-    setIsEmpty(false);
-    setIsVisible(false);
-  };
-
-  const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
-  };
-
-  const openModal = values => {
-    setSelectedImageInfo(values);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedImageInfo({});
-  };
-
+export default function App() {
   return (
-    <div>
-      <SearchBar onSubmit={handleSearch} />
+    <div className={css.container}>
+      <Navigation />
 
-      {isError && (
-        <ErrorMessage>Whoops, something went wrong! Please try reloading this page!</ErrorMessage>
-      )}
-
-      {images.length !== 0 && <ImageGallery images={images} openModal={openModal} />}
-
-      {isEmpty && query && <ErrorMessage>Sorry. There are no images ... </ErrorMessage>}
-
-
-      {isVisible && (
-        <div>
-          {isLoading ? (<Loader />) : (
-          <LoadMoreBtn disabled={isLoading} onClick={handleLoadMore}>
-              Load more
-            </LoadMoreBtn>   
-          )}
-        </div>
-      )}
-
-      {isLoading && <Loader />}
-
-      <ImageModal closeModal={closeModal} modalIsOpen={showModal} modal={selectedImageInfo} />
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviePage />} />
+          <Route path="/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
-};
-
-export default App;
+}

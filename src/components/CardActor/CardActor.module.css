@@ -1,0 +1,31 @@
+.actorContainer {
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.actorCard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.actorCardList {
+  max-width: 200px;
+  height: 320px;
+}
+
+.actorImage {
+  height: auto; 
+  border: 1px solid black;
+  border-radius: 8%;
+}
+
+.actorText {
+  color: rgb(122, 152, 185);
+  margin-top: 16px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+

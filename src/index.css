@@ -6,9 +6,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to right, rgb(17, 115, 157), 
-   rgb(60, 166, 198),
-   rgb(104, 168, 196));
+
+}
+
+body {
+  background-image: linear-gradient(rgba(46, 47, 66, 0.7),
+  rgba(46, 47, 66, 0.7)),
+  url(./img/movie-background-collage-3-min.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 300% 300%;
+  
 }
 
 

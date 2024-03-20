@@ -1,0 +1,53 @@
+.movieItem {
+  list-style-type: none;
+  width: 100%;
+  max-width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.movieItem:hover {
+  transform: scale(1.1);
+}
+
+.movieLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.imageContainer {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+.imageItem {
+  overflow: hidden;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.imageContainer img {
+  max-height: 100%;
+}
+
+.movieTitle {
+  color: rgb(122, 152, 185);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 12px;
+
+}
+
