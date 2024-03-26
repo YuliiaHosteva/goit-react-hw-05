@@ -1,9 +1,9 @@
 import { MagnifyingGlass } from 'react-loader-spinner';
-import c from './Loader.module.css';
+import css from './Loader.module.css';
 
 
 const Loader = () => (
-    <div className={c.loader}>
+    <div className={css.loader}>
     <MagnifyingGlass
     visible={true}
     height="80"

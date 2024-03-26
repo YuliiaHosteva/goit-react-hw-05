@@ -1,0 +1,14 @@
+.containerErrorPage {
+    display: flex;
+    gap: 16px;
+    color: aliceblue;
+
+}
+
+.containerErrorPageLink {
+    color: black
+}
+
+.containerErrorPageLink:hover {
+    color: rgb(149, 177, 207);
+}

@@ -6,8 +6,8 @@ import MovieReviews from "../MovieReviews/MovieReviews";
 import Loader from "../Loader/Loader";
 import css from './App.module.css';
 
-const HomePage = lazy(() => import("../../pages/HomePages/HomePages"));
-const MoviePage = lazy(() => import("../../pages/MoviePage/MoviePage"));
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
 const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
 );
@@ -23,8 +23,8 @@ export default function App() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/movies" element={<MoviePage />} />
-          <Route path="/:movieId" element={<MovieDetailsPage />}>
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
             <Route path="cast" element={<MovieCast />} />
             <Route path="reviews" element={<MovieReviews />} />
           </Route>

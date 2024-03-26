@@ -1,56 +1,47 @@
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import css from "../MoviesFilter/MoviesFilter.module.css"
+import css from "../MoviesFilter/MoviesFilter.module.css";
 
-
-
-export default function MoviesFilter({ onSubmit }) {
-  const [params, setParams] = useSearchParams();
+export default function MoviesFilter() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isFocused, setIsFocused] = useState(false);
+  const [query, setQuery] = useState(searchParams.get("query") ?? "");
 
-  const changeFilter = (query) => {
-    params.set("query", query);
-    setParams(params);
+  const handleChange = (e) => {
+    setQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const queryValue = e.target.query.value.trim();
-    if (!queryValue) {
+
+    if (!query) {
       toast.error("Please enter anything in the field of search");
       return;
     }
-    if (queryValue.length < 1) {
-      toast.error("To shot");
-      return;
-    }
-    if (queryValue.length > 50) {
-      toast.error("To long");
-      return;
-    }
 
-    changeFilter(queryValue);
-
-    onSubmit(queryValue);
+    searchParams.set("query", query);
+    setSearchParams(searchParams);
   };
-
-
 
   return (
     <>
       <form className={css.form} onSubmit={handleSubmit}>
         <input
-        className={css.input}
-        type="text"
-        name="query"
-        autoFocus={true}
-        placeholder={isFocused ? '' : "Search movies..."}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        required
+          onChange={handleChange}
+          value={query}
+          className={css.input}
+          type="text"
+          name="query"
+          autoFocus={true}
+          placeholder={isFocused ? "" : "Search movies..."}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          required
         />
-        <button className={css.btn} type="submit">Search</button>
+        <button className={css.btn} type="submit">
+          Search
+        </button>
       </form>
     </>
   );

@@ -4,9 +4,9 @@ import MovieList from "../../components/MovieList/MovieList";
 import MoviesFilter from "../../components/MoviesFilter/MoviesFilter";
 import { getMoviesTitleSearch } from "../../api";
 import Loader from "../../components/Loader/Loader";
-import css from "./MoviePage.module.css";
+import css from "./MoviesPage.module.css";
 
-export default function MoviePage() {
+export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -43,7 +43,7 @@ export default function MoviePage() {
         {isLoading && <Loader />}
         {error && <p>Something went wrong...</p>}
         {movies.length === 0 && !isLoading && !error && moviesTitle && (
-          <p>Please search for the correct movie :) </p>
+          <p>Please search for the correct movie!</p>
         )}
       </div>
       <MovieList movies={movies} />

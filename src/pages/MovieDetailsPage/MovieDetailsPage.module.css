@@ -1,0 +1,23 @@
+.goBackContainer {
+margin-bottom: 20px;
+width: 110px;
+border-radius: 20px;
+border: 1px solid black;
+list-style: none;
+text-decoration: none;
+overflow: hidden;
+}
+
+.goBackContainer:hover {
+background-color:  rgb(16, 74, 111);
+transform: scale(1.1);
+}
+.goBackLink {
+color: rgb(149, 177, 207);
+text-decoration: none;
+font-size: 16px;
+padding: 5px;
+margin-left: 20px;
+display: block;
+overflow: hidden;
+}

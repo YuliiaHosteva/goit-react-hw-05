@@ -7,14 +7,14 @@ import css from "./MovieCast.module.css";
 
 export default function MovieCast() {
   const { movieId } = useParams();
-  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [actor, setActor] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getData() {
       try {
-        setError(false);
+        setError(null);
         setIsLoading(true);
         const data = await fetchMovieCredits(movieId);
         setActor(data);
@@ -27,18 +27,21 @@ export default function MovieCast() {
     getData();
   }, [movieId]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <p className={css.error}>Something went wrong...</p>;
+  }
+
+  if (actor.length === 0) {
+    return <p className={css.noInfo}>No information available about the movie cast.</p>;
+  }
+
   return (
-    <>
-      <div className={css.container}>
-        {isLoading && <Loader />}
-        {error && <p className={css.error}>Something wrong...</p>}
-        {actor.length === 0 && !isLoading && !error && (
-          <p className={css.noInfo}>
-            No information available about the movie cast.
-          </p>
-        )}
-        <GalleryActor data={actor} />
-      </div>
-    </>
+    <div className={css.container}>
+      <GalleryActor data={actor} />
+    </div>
   );
 }
