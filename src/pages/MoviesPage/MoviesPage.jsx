@@ -13,21 +13,11 @@ export default function MoviesPage() {
   const [params] = useSearchParams();
   const moviesTitle = params.get("query") ?? "";
 
-  useEffect(() => {
-    async function getDataParams() {
-      handleSubmit(moviesTitle);
-    }
-
-    getDataParams();
-  }, [moviesTitle]);
-
   const handleSubmit = async (moviesTitle) => {
     try {
-      setMovies([]);
       setIsLoading(true);
       setError(null);
       const data = await getMoviesTitleSearch(moviesTitle);
-
       setMovies(data);
     } catch (error) {
       setError(true);
@@ -35,6 +25,12 @@ export default function MoviesPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (moviesTitle) {
+      handleSubmit(moviesTitle);
+    }
+  }, [moviesTitle]);
 
   return (
     <div className={css.containerStyles}>
